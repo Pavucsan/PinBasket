@@ -1,7 +1,6 @@
 package com.example.pinbasket;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -19,7 +18,9 @@ import android.view.View;
 
 import java.security.KeyStore;
 
-public class levelOne extends AppCompatImageView implements SensorEventListener {
+public class levelTwo extends AppCompatImageView implements SensorEventListener {
+
+
 
     Context context;
     private android.os.Handler h;
@@ -27,13 +28,12 @@ public class levelOne extends AppCompatImageView implements SensorEventListener 
     SensorManager sm;
     Sensor gravity;
     private int velocityX,velocityY;
-    public  static int score=0;
-    public String sc="";
+//    public  static int score=0;
+//    public String sc="";
     private boolean status=false;
 
 
-
-    public levelOne(Context context, AttributeSet attributeSet)
+    public levelTwo(Context context, AttributeSet attributeSet)
     {
         super(context,attributeSet);
         this.context=context;
@@ -49,6 +49,10 @@ public class levelOne extends AppCompatImageView implements SensorEventListener 
             invalidate();
         }
     };
+
+    public levelTwo(Context context) {
+        super(context);
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -70,17 +74,11 @@ public class levelOne extends AppCompatImageView implements SensorEventListener 
         canvas.drawLine(20, 950, 950, 950,paint2);
         canvas.drawLine(20, 20, 20, 950,paint2);
 
-        canvas.drawCircle(300, 300, 20, paint2);
+        canvas.drawCircle(300, 300, 50, paint2);
         canvas.drawCircle(500, 500, 20, paint2);
+        canvas.drawCircle(700, 700, 20, paint2);
+        canvas.drawCircle(650, 650, 30, paint2);
 
-
-
-        Paint paintShado=new Paint();
-        if (x<255 && x>0)
-            paintShado.setColor(Color.rgb(0, x, 0));
-        else
-            paintShado.setColor(Color.rgb(0, 22, 0));
-        canvas.drawCircle(800, 800, 60, paintShado);
 
         canvas.drawCircle(800, 800, 50, paintSuccess);
 
@@ -100,13 +98,14 @@ public class levelOne extends AppCompatImageView implements SensorEventListener 
             y+=velocityY;
 
 
-            if (((x < 320 && x > 280) && (y < 320 && y > 280) || (x < 520 && x > 480) && (y < 520 && y > 480))
+            if (((x < 350 && x > 250) && (y < 350 && y > 250) || (x < 520 && x > 480) && (y < 520 && y > 480)
+                    || (x < 720 && x > 680) && (y < 720 && y > 680) || (x < 700 && x > 600) && (y < 700 && y > 600))
             ) {
                 x = 400;
                 y = 50;
 //                score = 0;
             } else {
-                if ((x < 850 && x > 750) && (y < 850 && y > 750)) {
+                if ((x < 350 && x > 250) && (y < 350 && y > 250)) {
 //                    score = 100;
                     status=true;
                 }
@@ -118,14 +117,11 @@ public class levelOne extends AppCompatImageView implements SensorEventListener 
         {
             x=400;y=50;
         }
-
+        h.postDelayed(r, 30);
         if (status==true)
         {
             MainActivity mainActivity=new MainActivity();
             mainActivity.playLevel2();
-        }
-        else {
-            h.postDelayed(r, 30);
         }
 
 
